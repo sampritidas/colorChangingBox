@@ -1,30 +1,31 @@
 const fs = require('fs');
 
-class Color {
-  constructor(ele1, ele2, color) {
-    this.ele1 = ele1;
-    this.ele2 = ele2;
+class Structure {
+  constructor(height, width, color) {
+    this.height = height;
+    this.width = width;
     this.color = color;
   }
 
-  div() {
+  square() {
     const refresh = '<meta http-equiv="refresh" content="1" />';
     return `${refresh}<div style="background-color : ${this.color};
-     height : ${this.ele1}px;
-      width : ${this.ele2}px;" ></div>`;
+     height : ${this.height}px;
+      width : ${this.width}px;" ></div>`;
   }
 }
 
 const changeBoxColor = (index) => {
+  let currentIndex = index;
   setTimeout(() => {
     const colors = ['red', 'blue', 'green', 'yellow'];
-    const abc = new Color(200, 400, colors[index]);
-    fs.writeFileSync('colorChangingBox.html', abc.div(), 'utf8');
-    index -= 1;
-    if (index === -1) {
-      index = colors.length - 1;
+    const box = new Structure(200, 400, colors[currentIndex]);
+    fs.writeFileSync('colorChangingBox.html', box.square(), 'utf8');
+    currentIndex -= 1;
+    if (currentIndex === -1) {
+      currentIndex = colors.length - 1;
     }
-    changeBoxColor(index);
+    changeBoxColor(currentIndex);
   }, 1000);
 };
 
